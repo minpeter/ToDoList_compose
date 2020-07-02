@@ -40,3 +40,8 @@ body {
     animation: fadeIn 0.5s linear;
 
 }
+
+ul {
+   list-style:none;
+   padding-left:0px;
+}
