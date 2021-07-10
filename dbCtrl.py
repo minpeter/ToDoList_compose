@@ -36,3 +36,19 @@ def readTodo(userid):
 def delTodo(id, userid):
     cur.execute(f"delete from todo where id={id} AND userid={userid}")
     conn.commit()
+
+def editTodo(id, userid, editSel, text):
+    if editSel == 1:
+        # edit todo
+        cur.execute(f"update todo set todo='{text}' where id='{id}' AND userid='{userid}'")
+        conn.commit()
+    elif editSel == 2:
+        # edit endday
+        cur.execute(f"update todo set endday='{text}' where id='{id}' AND userid='{userid}'")
+        conn.commit()
+    elif editSel == 3:
+        # edit importance
+        cur.execute(f"update todo set importance='{text}' where id='{id}' AND userid='{userid}'")
+        conn.commit()
+    else:
+        print("error")
