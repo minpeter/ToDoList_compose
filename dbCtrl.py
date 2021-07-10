@@ -34,21 +34,25 @@ def readTodo(userid):
     return cur.fetchone()
 
 def delTodo(id, userid):
-    cur.execute(f"delete from todo where id={id} AND userid={userid}")
+    cur.execute(f"delete from todolist where id={id} AND userid={userid}")
     conn.commit()
 
 def editTodo(id, userid, editSel, text):
     if editSel == 1:
         # edit todo
-        cur.execute(f"update todo set todo='{text}' where id='{id}' AND userid='{userid}'")
+        cur.execute(f"update todolist set todo='{text}' where id='{id}' AND userid='{userid}'")
         conn.commit()
     elif editSel == 2:
         # edit endday
-        cur.execute(f"update todo set endday='{text}' where id='{id}' AND userid='{userid}'")
+        cur.execute(f"update todolist set endday='{text}' where id='{id}' AND userid='{userid}'")
         conn.commit()
     elif editSel == 3:
         # edit importance
-        cur.execute(f"update todo set importance='{text}' where id='{id}' AND userid='{userid}'")
+        cur.execute(f"update todolist set importance='{text}' where id='{id}' AND userid='{userid}'")
         conn.commit()
     else:
         print("error")
+
+def todoComplete(id, userid, tf):
+    cur.execute(f"update todolist set complete={tf} where id='{id}' AND userid='{userid}'")
+    conn.commit()
