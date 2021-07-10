@@ -30,7 +30,9 @@ def addTodo(userid, todo, endday, importance):
     conn.commit()
 
 def readTodo(userid):
-    cur.execute(f"select * from todolist where userid ='{userid}'")
+    cur.execute(f"select * from todolist where userid ={userid}")
     return cur.fetchone()
 
-def delTodo()
+def delTodo(id, userid):
+    cur.execute(f"delete from todo where id={id} AND userid={userid}")
+    conn.commit()
