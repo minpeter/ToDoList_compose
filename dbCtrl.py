@@ -24,14 +24,20 @@ def login(name, passwordH):
         cur.execute(f"select id from user where name ='{name}' AND passwordH = '{passwordH}'")
         return cur.fetchone()[0]
 
+
 def addTodo(userid, todo, endday, importance):
-    cur.execute(f"insert into user (userid, todo, endday, importance) values ({userid},'{todo}','{endday}','{importance}')")
+    cur.execute(f"insert into todolist (userid, todo, endday, importance) values ({userid},'{todo}', {endday}, {importance})")
     print("등록성공!")
     conn.commit()
 
 def readTodo(userid):
     cur.execute(f"select * from todolist where userid ={userid}")
-    return cur.fetchone()
+    readTodoList = []
+    rows = cur.fetchall()
+    for row in rows:
+        readTodoList.append(row)
+    return readTodoList
+
 
 def delTodo(id, userid):
     cur.execute(f"delete from todolist where id={id} AND userid={userid}")
@@ -56,3 +62,5 @@ def editTodo(id, userid, editSel, text):
 def todoComplete(id, userid, tf):
     cur.execute(f"update todolist set complete={tf} where id='{id}' AND userid='{userid}'")
     conn.commit()
+
+todoComplete(2,1,0)
