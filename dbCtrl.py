@@ -21,6 +21,8 @@ def login(name, passwordH):
         print("패스워드가 일치하지 않습니다.")
     else:
         print("사용자명과 패스워드 일치")
+        cur.execute(f"select id from user where name ='{name}' AND passwordH = '{passwordH}'")
+        return cur.fetchone()[0]
         # return user id
 
 def addTodo(id, todo, endday, importance):
@@ -28,6 +30,4 @@ def addTodo(id, todo, endday, importance):
     print("등록성공!")
     conn.commit()
 
-
-
-login('minpeter','testpw')
+login('minpeter', 'testpw')
