@@ -1,6 +1,4 @@
-from re import U
-import re
-from flask import Flask, json, request, jsonify
+from flask import Flask, request, jsonify
 import dbCtrl
 
 app = Flask (__name__)
@@ -48,6 +46,5 @@ def TodoComplete():
     returnV = dbCtrl.todoComplete(todoData["id"], todoData["userId"], todoData["tf"])
     return jsonify(returnV)
 
-
 if __name__ == '__main__':
-    app.run() #host = 0.0.0.0
+    app.run()
