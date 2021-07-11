@@ -37,28 +37,31 @@ def readTodo(userid):
         readTodoList.append(rowdict)
     return readTodoList
 
-readTodo(1)
-
 def delTodo(id, userid):
     cur.execute(f"delete from todolist where id={id} AND userid={userid}")
     conn.commit()
+    return {"msg":f"유저 {userid}의 {id} 할일 삭제 완료"}
 
 def editTodo(id, userid, editSel, text):
-    if editSel == 1:
+    if int(editSel) == 1:
         # edit todo
         cur.execute(f"update todolist set todo='{text}' where id='{id}' AND userid='{userid}'")
         conn.commit()
-    elif editSel == 2:
+        return {"msg":f"{id}할일의 내용을 '{text}'으로 변경하였습니다"}
+    elif int(editSel) == 2:
         # edit endday
         cur.execute(f"update todolist set endday='{text}' where id='{id}' AND userid='{userid}'")
         conn.commit()
-    elif editSel == 3:
+        return {"msg":f"{id}의 마감을 '{text}'으로 변경하였습니다"}
+    elif int(editSel) == 3:
         # edit importance
         cur.execute(f"update todolist set importance='{text}' where id='{id}' AND userid='{userid}'")
         conn.commit()
+        return {"msg":f"{id}의 중요도를 '{text}'으로 변경하였습니다"}
     else:
-        print("error")
+        return {"msg":"editTodo 어딘가에 문제가 있습니다"}
 
 def todoComplete(id, userid, tf):
     cur.execute(f"update todolist set complete={tf} where id='{id}' AND userid='{userid}'")
     conn.commit()
+    return {"msg":f"유저 {userid}의 {id} 할일 완료 상태 {tf}로 변경"}
