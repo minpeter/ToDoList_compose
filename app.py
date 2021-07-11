@@ -17,15 +17,23 @@ def Login():
     returnV = dbCtrl.login(loginData["userName"], loginData["passwordH"])
     return jsonify(returnV)
 
-# @app.route("/addTodo")
+@app.route("/addTodo", methods = ['POST'])
+def AddTodo():
+    todoData = request.get_json()
+    returnV = dbCtrl.addTodo(todoData["userId"], todoData["todo"], todoData["endday"], todoData["importance"])
+    return jsonify(returnV)
 
-# @app.route("/readTodo")
+@app.route("/readTodo", methods = ['POST'])
+def ReadTodo():
+    todoData = request.get_json()
+    returnV = dbCtrl.readTodo(todoData["userId"])
+    return jsonify(returnV)
 
-# @app.route("/delTodo")
+# @app.route("/delTodo", methods = ['POST'])
 
-# @app.route("/editTodo")
+# @app.route("/editTodo", methods = ['POST'])
 
-# @app.route("/todoComplete")
+# @app.route("/todoComplete", methods = ['POST'])
 
 
 if __name__ == '__main__':

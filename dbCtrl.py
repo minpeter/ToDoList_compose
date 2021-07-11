@@ -25,17 +25,19 @@ def login(name, passwordH):
 
 def addTodo(userid, todo, endday, importance):
     cur.execute(f"insert into todolist (userid, todo, endday, importance) values ({userid},'{todo}', {endday}, {importance})")
-    print("등록성공!")
     conn.commit()
+    return {"msg":"등록성공"}
 
 def readTodo(userid):
     cur.execute(f"select * from todolist where userid ={userid}")
     readTodoList = []
     rows = cur.fetchall()
     for row in rows:
-        readTodoList.append(row)
+        rowdict = {"id":row[0],"userid":row[1],"todo":row[2],"endday":row[3],"importance":row[4],"complete":row[5]}
+        readTodoList.append(rowdict)
     return readTodoList
 
+readTodo(1)
 
 def delTodo(id, userid):
     cur.execute(f"delete from todolist where id={id} AND userid={userid}")
