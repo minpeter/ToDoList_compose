@@ -22,12 +22,12 @@ def login(name, password="default password"):
 
 
 def addTodo(id, userid, todo):
-    cur.execute(f"insert into todolist (id, userid, todo) values ({id}, {userid},'{todo}')")
+    cur.execute(f"insert into todo (id, userid, todo) values ({id}, {userid},'{todo}')")
     conn.commit()
     return {"msg":"등록성공"}
 
 def readTodo(userid):
-    cur.execute(f"select * from todolist where userid ={userid}")
+    cur.execute(f"select * from todo where userid={userid}")
     readTodoList = []
     rows = cur.fetchall()
     for row in rows:
@@ -36,22 +36,22 @@ def readTodo(userid):
     return readTodoList
 
 def delTodo(id, userid):
-    cur.execute(f"delete from todolist where id={id} AND userid={userid}")
+    cur.execute(f"delete from todo where id={id} AND userid={userid}")
     conn.commit()
     return {"msg":f"유저 {userid}의 {id} todo 삭제 완료"}
 
 def editTodo(id, userid, text):
-    cur.execute(f"update todolist set todo='{text}' where id='{id}' AND userid='{userid}'")
+    cur.execute(f"update todo set todo='{text}' where id='{id}' AND userid='{userid}'")
     conn.commit()
     return {"msg":f"{id} todo의 내용을 '{text}'으로 변경하였습니다"}
 
 def todoComplete(id, userid, complete):
-    cur.execute(f"update todolist set complete={complete} where id='{id}' AND userid='{userid}'")
+    cur.execute(f"update todo set complete={complete} where id='{id}' AND userid='{userid}'")
     conn.commit()
     return {"msg":f"유저 {userid}의 {id} 할일 완료 상태 {complete==1 if '완료' else '작업중'}로 변경"}
 
 def lastId(userid):
-    cur.execute(f"select MAX(id) from todolist where userid={userid}")
+    cur.execute(f"select MAX(id) from todo where userid={userid}")
     lastid = cur.fetchall()
     if lastid[0][0] == None:
         return 0
