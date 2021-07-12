@@ -5,6 +5,8 @@ const toDoForm = document.querySelector(".js-toDoForm"),
 toDoInput = toDoForm.querySelector("input"),
 toDoList = document.querySelector(".js-toDoList");
 
+const USERID = 1
+
 // const TODOS_LS = "toDos";
 
 let toDos = [];
@@ -13,7 +15,7 @@ function deleteToDo(event) {
   const btn = event.target;
   const li = btn.parentNode;
   toDoList.removeChild(li);
-  delTodoApi(li.id, 1)
+  delTodoApi(li.id, USERID)
   const cleanToDos = toDos.filter(function(toDo) {
     return toDo.id !== parseInt(li.id);
   });
@@ -26,7 +28,7 @@ function deleteToDo(event) {
 //   localStorage.setItem(TODOS_LS, JSON.stringify(toDos));
 // }
 
-function paintToDo(todo, id) {
+function paintToDo(id, todo) {
   const li = document.createElement("li");
   const delBtn = document.createElement("button");
   const span = document.createElement("span");
@@ -50,23 +52,10 @@ function handleSubmit(event) {
   event.preventDefault();
   const currentValue = toDoInput.value;
 
-  paintToDo(currentValue, toDos[0]==null ? lastId(1)+1:toDos[toDos.length-1].id+1);
-  addTodoApi(currentValue);
+  paintToDo(toDos.length+1, currentValue);
+  addTodoApi(toDos.length, USERID, currentValue);
   toDoInput.value = "";
 }
-
-
-// function loadToDos() {
-//   const loadedToDos = localStorage.getItem(TODOS_LS);
-//   console.log(loadedToDos)
-//   if (loadedToDos !== null) {
-//     const parsedToDos = JSON.parse(loadedToDos);
-//     console.log(parsedToDos)
-//     parsedToDos.forEach(function(toDo) {
-//       paintToDo(toDo.text);
-//     });
-//   }
-// }
 
 function init() {
   loadToDos();
@@ -74,8 +63,8 @@ function init() {
 }
 init();
 
-function addTodoApi(id, todo) {
-  fetch(`http://localhost:7878/addTodo?id=${id}&userId=1&todo=${todo}`)
+function addTodoApi(id, userId, todo) {
+  fetch(`http://localhost:7878/addTodo?id=${id}&userId=${userId}&userId=1&todo=${todo}`)
   .then((response) => response.json())
   .then((data) => console.log(data));
 }
