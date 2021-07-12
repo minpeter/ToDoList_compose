@@ -17,12 +17,14 @@ function deleteToDo(event) {
     return toDo.id !== parseInt(li.id);
   });
   toDos = cleanToDos;
-  saveToDos();
+  // saveToDos();
+  //delTodo()
 }
 
-function saveToDos() {
-  localStorage.setItem(TODOS_LS, JSON.stringify(toDos));
-}
+// function saveToDos() {
+//   localStorage.setItem(TODOS_LS, JSON.stringify(toDos));
+// }
+
 function paintToDo(text) {
   const li = document.createElement("li");
   const delBtn = document.createElement("button");
@@ -40,7 +42,8 @@ function paintToDo(text) {
     id: newId
   };
   toDos.push(toDoObj);
-  saveToDos();
+  
+
 }
 function handleSubmit(event) {
   event.preventDefault();
@@ -64,7 +67,6 @@ function handleSubmit(event) {
 
 function init() {
   loadToDos();
-  // readTodoApi(1)
   toDoForm.addEventListener("submit", handleSubmit);
 }
 init();
@@ -90,7 +92,6 @@ function todoComplete(id, userId) {
   .then((response) => response.json())
   .then((data) => console.log(data));
 }
-
 function readTodoApi(userId) {
   return fetch(`http://localhost:7878/readTodo?userId=${userId}`)
  .then((response) => response.json())
