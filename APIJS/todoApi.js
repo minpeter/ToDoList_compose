@@ -49,17 +49,21 @@ function handleSubmit(event) {
   addTodoApi(currentValue);
   toDoInput.value = "";
 }
-function loadToDos() {
-  const loadedToDos = localStorage.getItem(TODOS_LS);
-  if (loadedToDos !== null) {
-    const parsedToDos = JSON.parse(loadedToDos);
-    parsedToDos.forEach(function(toDo) {
-      paintToDo(toDo.text);
-    });
-  }
-}
+
+// function loadToDos() {
+//   const loadedToDos = localStorage.getItem(TODOS_LS);
+//   console.log(loadedToDos)
+//   if (loadedToDos !== null) {
+//     const parsedToDos = JSON.parse(loadedToDos);
+//     parsedToDos.forEach(function(toDo) {
+//       paintToDo(toDo.text);
+//     });
+//   }
+// }
+
 function init() {
   loadToDos();
+  // readTodoApi(1)
   toDoForm.addEventListener("submit", handleSubmit);
 }
 init();
@@ -69,11 +73,7 @@ function addTodoApi(todo) {
   .then((response) => response.json())
   .then((data) => console.log(data));
 }
-function readTodoApi(userId) {
-  fetch(`http://localhost:7878/readTodo?userId=${userId}`)
-  .then((response) => response.json())
-  .then((data) => console.log(data));
-}
+
 function delTodoApi(id, userId) {
   fetch(`http://localhost:7878/delTodo?id=${id}&userId=${userId}`)
   .then((response) => response.json())
@@ -88,4 +88,20 @@ function todoComplete(id, userId) {
   fetch(`http://localhost:7878/todoComplete?id=${id}&userId=${userId}&tf=1`)
   .then((response) => response.json())
   .then((data) => console.log(data));
+}
+
+function readTodoApi(userId) {
+  return fetch(`http://localhost:7878/readTodo?userId=${userId}`)
+ .then((response) => response.json())
+ .then((data) => {return(data)});
+}
+
+async function loadToDos() {
+  const loadedToDos = await readTodoApi(1)
+  if (loadedToDos !== null) {
+    const parsedToDos = JSON.parse(loadedToDos);
+    parsedToDos.forEach(function(toDo) {
+      paintToDo(toDo.todo);
+    });
+  }
 }
