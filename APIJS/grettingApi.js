@@ -40,3 +40,16 @@ function init() {
     loadName();
 }
 init();
+
+
+function addTodoApi(userName) {
+    fetch(`http://localhost:7878/addUser?userName=${userName}&passwordH=1&email=1`)
+    .then((response) => response.json())
+    .then((data) => console.log(data));
+  }
+
+  function login(userName) {
+    fetch(`http://localhost:7878/login?userName=${userName}&passwordH=1`)
+    .then((response) => response.json())
+    .then((data) => console.log(data));
+  }
