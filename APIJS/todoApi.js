@@ -51,9 +51,11 @@ function paintToDo(id, todo) {
 function handleSubmit(event) {
   event.preventDefault();
   const currentValue = toDoInput.value;
-
-  paintToDo(toDos.length+1, currentValue);
-  addTodoApi(toDos.length, USERID, currentValue);
+  // toDos[toDos.length-1].id+1
+  // toDos[0] == null ? 1 : toDos[toDos.length-1].id+1
+  const nextId = toDos[0] == null ? 1 : toDos[toDos.length-1].id+1
+  paintToDo(nextId, currentValue);
+  addTodoApi(nextId, USERID, currentValue);
   toDoInput.value = "";
 }
 
@@ -99,6 +101,6 @@ function readTodoApi(userId) {
 async function loadToDos() {
   const loadedToDos = await readTodoApi(1)
   loadedToDos.forEach(function(toDo) {
-    paintToDo(toDo.todo, toDo.id);
+  paintToDo(toDo.id, toDo.todo);
   });
 }
