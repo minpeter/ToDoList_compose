@@ -5,7 +5,7 @@ const toDoForm = document.querySelector(".js-toDoForm"),
 toDoInput = toDoForm.querySelector("input"),
 toDoList = document.querySelector(".js-toDoList");
 
-const TODOS_LS = "toDos";
+// const TODOS_LS = "toDos";
 
 let toDos = [];
 
@@ -13,6 +13,7 @@ function deleteToDo(event) {
   const btn = event.target;
   const li = btn.parentNode;
   toDoList.removeChild(li);
+  delTodoApi(li.id, 1)
   const cleanToDos = toDos.filter(function(toDo) {
     return toDo.id !== parseInt(li.id);
   });
@@ -25,33 +26,35 @@ function deleteToDo(event) {
 //   localStorage.setItem(TODOS_LS, JSON.stringify(toDos));
 // }
 
-function paintToDo(text) {
+function paintToDo(todo, id) {
   const li = document.createElement("li");
   const delBtn = document.createElement("button");
   const span = document.createElement("span");
-  const newId = toDos.length + 1;
+  const newId = id;
   delBtn.innerText = "X";
   delBtn.addEventListener("click", deleteToDo);
-  span.innerText = text;
+  span.innerText = todo;
   li.appendChild(delBtn);
   li.appendChild(span);
   li.id = newId;
+  console.log(todo,id)
   toDoList.appendChild(li);
   const toDoObj = {
-    text: text,
+    text: todo,
     id: newId
   };
   toDos.push(toDoObj);
   
-
 }
 function handleSubmit(event) {
   event.preventDefault();
   const currentValue = toDoInput.value;
-  paintToDo(currentValue);
+  paintToDo(currentValue, toDos.length + 1);
   addTodoApi(currentValue);
+  //위에 toDos.length + 1이랑 db id 와 차이가 발생해 오류 발생가능 (맨뒤에 id를 삭제할경우)
   toDoInput.value = "";
 }
+
 
 // function loadToDos() {
 //   const loadedToDos = localStorage.getItem(TODOS_LS);
@@ -92,6 +95,7 @@ function todoComplete(id, userId) {
   .then((response) => response.json())
   .then((data) => console.log(data));
 }
+
 function readTodoApi(userId) {
   return fetch(`http://localhost:7878/readTodo?userId=${userId}`)
  .then((response) => response.json())
@@ -101,6 +105,6 @@ function readTodoApi(userId) {
 async function loadToDos() {
   const loadedToDos = await readTodoApi(1)
   loadedToDos.forEach(function(toDo) {
-    paintToDo(toDo.todo);
+    paintToDo(toDo.todo, toDo.id);
   });
 }
