@@ -49,7 +49,8 @@ function paintToDo(todo, id) {
 function handleSubmit(event) {
   event.preventDefault();
   const currentValue = toDoInput.value;
-  paintToDo(currentValue, toDos[toDos.length-1].id+1);
+
+  paintToDo(currentValue, toDos[0]==null ? lastId(1)+1:toDos[toDos.length-1].id+1);
   addTodoApi(currentValue);
   toDoInput.value = "";
 }
@@ -73,8 +74,8 @@ function init() {
 }
 init();
 
-function addTodoApi(todo) {
-  fetch(`http://localhost:7878/addTodo?userId=1&todo=${todo}&endday=1&importance=1`)
+function addTodoApi(id, todo) {
+  fetch(`http://localhost:7878/addTodo?id=${id}&userId=1&todo=${todo}`)
   .then((response) => response.json())
   .then((data) => console.log(data));
 }
@@ -85,14 +86,19 @@ function delTodoApi(id, userId) {
   .then((data) => console.log(data));
 }
 function editTodoApi(id, userId, text) {
-  fetch(`http://localhost:7878/editTodo?id=${id}&userId=${userId}&editSel=1&text=${text}`)
+  fetch(`http://localhost:7878/editTodo?id=${id}&userId=${userId}&text=${text}`)
   .then((response) => response.json())
   .then((data) => console.log(data));
 }
-function todoComplete(id, userId) {
-  fetch(`http://localhost:7878/todoComplete?id=${id}&userId=${userId}&tf=1`)
+function todoComplete(id, userId, complete) {
+  fetch(`http://localhost:7878/todoComplete?id=${id}&userId=${userId}&complete=${complete}`)
   .then((response) => response.json())
   .then((data) => console.log(data));
+}
+function lastId(userId) {
+  return fetch(`http://localhost:7878/lastId?userId=${userId}`)
+ .then((response) => response.text())
+ .then((data) => {return(data)});
 }
 
 function readTodoApi(userId) {
