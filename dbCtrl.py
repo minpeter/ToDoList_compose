@@ -49,11 +49,3 @@ def todoComplete(id, userid, complete):
     cur.execute(f"update todo set complete={complete} where id='{id}' AND userid='{userid}'")
     conn.commit()
     return {"msg":f"유저 {userid}의 {id} 할일 완료 상태 {complete==1 if '완료' else '작업중'}로 변경"}
-
-def lastId(userid):
-    cur.execute(f"select MAX(id) from todo where userid={userid}")
-    lastid = cur.fetchall()
-    if lastid[0][0] == None:
-        return 0
-    else:
-        return lastid[0][0]

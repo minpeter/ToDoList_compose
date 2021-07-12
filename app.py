@@ -57,10 +57,5 @@ def TodoComplete():
     returnV = dbCtrl.todoComplete(id, userId, complete)
     return jsonify(returnV)
 
-@app.route("/lastId", methods = ['GET'])
-def LastId():
-    userId = request.args.get("userId")
-    return jsonify(dbCtrl.lastId(userId))
-
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=7878)
