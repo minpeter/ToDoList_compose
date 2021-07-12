@@ -49,9 +49,8 @@ function paintToDo(todo, id) {
 function handleSubmit(event) {
   event.preventDefault();
   const currentValue = toDoInput.value;
-  paintToDo(currentValue, toDos.length + 1);
+  paintToDo(currentValue, toDos[toDos.length-1].id+1);
   addTodoApi(currentValue);
-  //위에 toDos.length + 1이랑 db id 와 차이가 발생해 오류 발생가능 (맨뒤에 id를 삭제할경우)
   toDoInput.value = "";
 }
 
