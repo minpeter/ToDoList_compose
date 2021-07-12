@@ -8,26 +8,24 @@ CORS(app, resources=r'/*')
 @app.route("/addUser", methods = ['GET'])
 def AddUser():
     userName = request.args.get("userName")
-    passwordH = request.args.get("passwordH")
-    email = request.args.get("email")
-    returnV = dbCtrl.addUser(userName, passwordH, email,)
+    password = request.args.get("password")
+    returnV = dbCtrl.addUser(userName, password)
     return jsonify(returnV)
 
 
 @app.route("/login", methods = ['GET'])
 def Login():
     userName = request.args.get("userName")
-    passwordH = request.args.get("passwordH")
-    returnV = dbCtrl.login(userName, passwordH)
+    password = request.args.get("password")
+    returnV = dbCtrl.login(userName, password)
     return jsonify(returnV)
 
 @app.route("/addTodo", methods = ['GET'])
 def AddTodo():
+    id = request.args.get("id")
     userId = request.args.get("userId")
     todo = request.args.get("todo")
-    endday = request.args.get("endday")
-    importance = request.args.get("importance")
-    returnV = dbCtrl.addTodo(userId, todo, endday, importance)
+    returnV = dbCtrl.addTodo(id, userId, todo)
     return jsonify(returnV)
 
 @app.route("/readTodo", methods = ['GET'])
@@ -47,17 +45,16 @@ def DelTodo():
 def EditTodo():
     id = request.args.get("id")
     userId = request.args.get("userId")
-    editSel = request.args.get("editSel")
     text = request.args.get("text")
-    returnV = dbCtrl.editTodo(id, userId, editSel, text)    
+    returnV = dbCtrl.editTodo(id, userId, text)    
     return jsonify(returnV)
 
 @app.route("/todoComplete", methods = ['GET'])
 def TodoComplete():
     id = request.args.get("id")
     userId = request.args.get("userId")
-    tf = request.args.get("tf")
-    returnV = dbCtrl.todoComplete(id, userId, tf)
+    complete = request.args.get("complete")
+    returnV = dbCtrl.todoComplete(id, userId, complete)
     return jsonify(returnV)
 
 @app.route("/lastId", methods = ['GET'])
