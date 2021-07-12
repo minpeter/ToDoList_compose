@@ -11,5 +11,5 @@ conn.commit()
 
 
 cur.execute("insert into user (name, password) values ('minpeter','testpw');") #userid(auto), username, password
-cur.execute("insert into todo (id, userid, todo) values (1, 1,'test Query todo');") # post id, user id, todo text, complete (auto)
+# cur.execute("insert into todo (id, userid, todo) values (1, 1,'test Query todo');") # post id, user id, todo text, complete (auto)
 conn.commit()
