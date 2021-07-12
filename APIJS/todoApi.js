@@ -46,6 +46,7 @@ function handleSubmit(event) {
   event.preventDefault();
   const currentValue = toDoInput.value;
   paintToDo(currentValue);
+  addTodoApi(currentValue);
   toDoInput.value = "";
 }
 function loadToDos() {
@@ -62,3 +63,19 @@ function init() {
   toDoForm.addEventListener("submit", handleSubmit);
 }
 init();
+
+function addTodoApi(todo) {
+  fetch(`http://localhost:7878/addTodo?userId=1&todo=${todo}&endday=1&importance=1`)
+  .then((response) => response.json())
+  .then((data) => console.log(data));
+}
+function readTodoApi(userId) {
+  fetch(`http://localhost:7878/readTodo?userId=${userId}`)
+  .then((response) => response.json())
+  .then((data) => console.log(data));
+}
+function delTodoApi(text) {
+  fetch(`http://localhost:7878/delTodo?userId=1&todo=${text}&endday=1&importance=1`)
+  .then((response) => response.json())
+  .then((data) => console.log(data));
+}
