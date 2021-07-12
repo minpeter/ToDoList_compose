@@ -10,16 +10,15 @@ def addUser(name, password="default password"):
         cur.execute(f"insert into user (name, password) values ('{name}','{password}')")
         conn.commit()
         return {"msg":"등록성공"}
-        
+
 def login(name, password="default password"):
     if cur.execute(f"select EXISTS (select * from user where name='{name}');").fetchone() == (0,):
         return {"msg:":"사용자명을 다시 확인해주세요"}
     elif cur.execute(f"select EXISTS (select * from user where name ='{name}' AND password = '{password}');").fetchone() == (0,):
         return {"msg:":"패스워드가 일치하지 않습니다."}
     else:
-        cur.execute(f"select id from user where name ='{name}' AND password = '{password}'")
+        cur.execute(f"select userid from user where name ='{name}' AND password = '{password}'")
         return {"msg":"로그인성공","userid":cur.fetchone()[0]}
-
 
 def addTodo(id, userid, todo):
     cur.execute(f"insert into todo (id, userid, todo) values ({id}, {userid},'{todo}')")
