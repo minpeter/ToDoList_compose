@@ -20,13 +20,7 @@ function deleteToDo(event) {
     return toDo.id !== parseInt(li.id);
   });
   toDos = cleanToDos;
-  // saveToDos();
-  //delTodo()
 }
-
-// function saveToDos() {
-//   localStorage.setItem(TODOS_LS, JSON.stringify(toDos));
-// }
 
 function paintToDo(id, todo) {
   const li = document.createElement("li");
