@@ -55,6 +55,7 @@ function handleSubmit(event) {
 //   console.log(loadedToDos)
 //   if (loadedToDos !== null) {
 //     const parsedToDos = JSON.parse(loadedToDos);
+//     console.log(parsedToDos)
 //     parsedToDos.forEach(function(toDo) {
 //       paintToDo(toDo.text);
 //     });
@@ -98,10 +99,7 @@ function readTodoApi(userId) {
 
 async function loadToDos() {
   const loadedToDos = await readTodoApi(1)
-  if (loadedToDos !== null) {
-    const parsedToDos = JSON.parse(loadedToDos);
-    parsedToDos.forEach(function(toDo) {
-      paintToDo(toDo.todo);
-    });
-  }
+  loadedToDos.forEach(function(toDo) {
+    paintToDo(toDo.todo);
+  });
 }
