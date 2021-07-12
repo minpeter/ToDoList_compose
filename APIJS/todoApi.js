@@ -74,8 +74,18 @@ function readTodoApi(userId) {
   .then((response) => response.json())
   .then((data) => console.log(data));
 }
-function delTodoApi(text) {
-  fetch(`http://localhost:7878/delTodo?userId=1&todo=${text}&endday=1&importance=1`)
+function delTodoApi(id, userId) {
+  fetch(`http://localhost:7878/delTodo?id=${id}&userId=${userId}`)
+  .then((response) => response.json())
+  .then((data) => console.log(data));
+}
+function editTodoApi(id, userId, text) {
+  fetch(`http://localhost:7878/editTodo?id=${id}&userId=${userId}&editSel=1&text=${text}`)
+  .then((response) => response.json())
+  .then((data) => console.log(data));
+}
+function todoComplete(id, userId) {
+  fetch(`http://localhost:7878/todoComplete?id=${id}&userId=${userId}&tf=1`)
   .then((response) => response.json())
   .then((data) => console.log(data));
 }
