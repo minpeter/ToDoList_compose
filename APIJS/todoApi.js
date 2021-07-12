@@ -86,11 +86,6 @@ function todoComplete(id, userId, complete) {
   .then((response) => response.json())
   .then((data) => console.log(data));
 }
-function lastId(userId) {
-  return fetch(`http://localhost:7878/lastId?userId=${userId}`)
- .then((response) => response.text())
- .then((data) => {return(data)});
-}
 
 function readTodoApi(userId) {
   return fetch(`http://localhost:7878/readTodo?userId=${userId}`)
