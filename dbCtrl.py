@@ -65,3 +65,8 @@ def todoComplete(id, userid, tf):
     cur.execute(f"update todolist set complete={tf} where id='{id}' AND userid='{userid}'")
     conn.commit()
     return {"msg":f"유저 {userid}의 {id} 할일 완료 상태 {tf}로 변경"}
+
+def lastId(userid):
+    cur.execute(f"select * from todolist where userid={userid}")
+    row = cur.fetchall()
+    return row[-1:][0][0] # last todo id
