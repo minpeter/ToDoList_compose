@@ -54,7 +54,7 @@ function handleSubmit(event) {
 }
 
 function init() {
-  loadToDos();
+  readTodoApi(USERID)
   toDoForm.addEventListener("submit", handleSubmit);
 }
 init();
@@ -81,15 +81,28 @@ function todoComplete(id, userId, complete) {
   .then((data) => console.log(data));
 }
 
-function readTodoApi(userId) {
-  return fetch(`http://localhost:7878/readTodo?userId=${userId}`)
- .then((response) => response.json())
- .then((data) => {return(data)});
-}
+// function readTodoApi(userId) {
+//   return fetch(`http://localhost:7878/readTodo?userId=${userId}`)
+//  .then((response) => response.json())
+//  .then((data) => {return(data)});
+// }
 
-async function loadToDos() {
-  const loadedToDos = await readTodoApi(1)
-  loadedToDos.forEach(function(toDo) {
-  paintToDo(toDo.id, toDo.todo);
-  });
+// async function loadToDos() {
+//   const loadedToDos = await readTodoApi(USERID)
+//   loadedToDos.forEach(function(toDo) {
+//   paintToDo(toDo.id, toDo.todo);
+//   });
+// }
+
+function readTodoApi(userId) {
+  fetch(
+    `http://localhost:7878/readTodo?userId=${userId}`
+      ).then(function(response) {
+          return response.json();
+      }).then(function(json) {
+        var i;
+        for (i = 1; i <= json.lastid; i++) {
+          console.log(json[i],i)
+        }
+      })
 }
