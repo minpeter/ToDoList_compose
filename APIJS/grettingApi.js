@@ -2,16 +2,11 @@ const form = document.querySelector(".js-form"),
     input = form.querySelector("input"),
     greeting = document.querySelector(".js-greetings");
 
-//TEST 
 const TESTPW = "testpw",
-    ID_LS = "currentUserId";
-
-const USER_LS = "currentUser",
     SHOWING_CH = "showing";
 
-function saveName(text) {
-    localStorage.setItem(USER_LS, text);
-}
+const USER_LS = "currentUser",
+    ID_LS = "currentUserId";
 
 function handleSubmit(event) {
     event.preventDefault();
@@ -55,9 +50,18 @@ function addUserApi(userName) {
   }
 
   function loginApi(userName) {
-    return fetch(`http://localhost:7878/login?userName=${userName}&password=${TESTPW}`)
-    .then((response) => response.json())
-    .then((data) => {return(data)});
+      fetch(
+        `http://localhost:7878/login?userName=${userName}&password=${TESTPW}`
+      ).then(function(response) {
+          return response.json();
+      }).then(function(json) {
+          if(json.userid!=null){
+            saveId(json.userid)
+              console.log(`${json.msg} userid : ${json.userid}`)
+          }else{
+              console.log(json.msg)
+          }
+      })
   }
   async function loginJson(name){
       await loginApi(name).forEach(function(msg) {
@@ -65,6 +69,9 @@ function addUserApi(userName) {
       })
   }
   
-  function saveId(text) {
+function saveId(text) {
     localStorage.setItem(ID_LS, text);
+}
+function saveName(text) {
+    localStorage.setItem(USER_LS, text);
 }

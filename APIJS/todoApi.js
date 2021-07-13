@@ -1,11 +1,6 @@
-
-const userName = "testUSER", passwordH = "userPW", email = "test@email.com"
-
 const toDoForm = document.querySelector(".js-toDoForm"),
 toDoInput = toDoForm.querySelector("input"),
 toDoList = document.querySelector(".js-toDoList");
-
-const USERID = 1
 
 let toDos = [];
 
@@ -56,7 +51,7 @@ function init() {
 init();
 
 function addTodoApi(id, userId, todo) {
-  fetch(`http://localhost:7878/addTodo?id=${id}&userId=${userId}&userId=1&todo=${todo}`)
+  fetch(`http://localhost:7878/addTodo?id=${id}&userId=${userId}&userId=${userId}&todo=${todo}`)
   .then((response) => response.json())
   .then((data) => console.log(data));
 }
@@ -81,7 +76,7 @@ function readTodoApi(userId) {
   fetch(
     `http://localhost:7878/readTodo?userId=${userId}`
       ).then(function(response) {
-          return response.json();
+        return response.json();
       }).then(function(json) {
         var i;
         for (i = 1; i <= json.lastid; i++) {
