@@ -103,6 +103,7 @@ function readTodoApi(userId) {
         var i;
         for (i = 1; i <= json.lastid; i++) {
           console.log(json[i],i)
+          paintToDo(json[i].id, json[i].todo);
         }
       })
 }
