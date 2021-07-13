@@ -1,3 +1,4 @@
+import re
 import sqlite3
 
 conn = sqlite3.connect("todo.db", check_same_thread=False)
@@ -20,6 +21,7 @@ def login(name, password="default password"):
         cur.execute(f"select userid from user where name ='{name}' AND password = '{password}'")
         return {"msg":"로그인성공","userid":cur.fetchone()[0]}
 
+
 def addTodo(id, userid, todo):
     cur.execute(f"insert into todo (id, userid, todo) values ({id}, {userid},'{todo}')")
     conn.commit()
@@ -27,12 +29,14 @@ def addTodo(id, userid, todo):
 
 def readTodo(userid):
     cur.execute(f"select * from todo where userid={userid}")
-    readTodoList = []
+    readTodoDict = {}
     rows = cur.fetchall()
-    for row in rows:
-        rowdict = {"id":row[0],"userid":row[1],"todo":row[2],"complete":row[3]}
-        readTodoList.append(rowdict)
-    return readTodoList
+    if rows != []:
+        for row in rows:
+            rowdict = {"userid":row[1],"todo":row[2],"complete":row[3]}
+            readTodoDict[str(row[0])] = rowdict
+    readTodoDict["lastid"] = lastId(userid)
+    return readTodoDict
 
 def delTodo(id, userid):
     cur.execute(f"delete from todo where id={id} AND userid={userid}")
@@ -48,3 +52,11 @@ def todoComplete(id, userid, complete):
     cur.execute(f"update todo set complete={complete} where id='{id}' AND userid='{userid}'")
     conn.commit()
     return {"msg":f"유저 {userid}의 {id} 할일 완료 상태 {complete==1 if '완료' else '작업중'}로 변경"}
+
+def lastId(userid):
+    cur.execute(f"select MAX(id) from todo where userid={userid}")
+    lastid = cur.fetchall()
+    if lastid[0][0] == None:
+        return 0
+    else:
+        return lastid[0][0]
