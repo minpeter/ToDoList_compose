@@ -7,8 +7,6 @@ toDoList = document.querySelector(".js-toDoList");
 
 const USERID = 1
 
-// const TODOS_LS = "toDos";
-
 let toDos = [];
 
 function deleteToDo(event) {
@@ -45,8 +43,6 @@ function paintToDo(id, todo) {
 function handleSubmit(event) {
   event.preventDefault();
   const currentValue = toDoInput.value;
-  // toDos[toDos.length-1].id+1
-  // toDos[0] == null ? 1 : toDos[toDos.length-1].id+1
   const nextId = toDos[0] == null ? 1 : toDos[toDos.length-1].id+1
   paintToDo(nextId, currentValue);
   addTodoApi(nextId, USERID, currentValue);
@@ -81,19 +77,6 @@ function todoComplete(id, userId, complete) {
   .then((data) => console.log(data));
 }
 
-// function readTodoApi(userId) {
-//   return fetch(`http://localhost:7878/readTodo?userId=${userId}`)
-//  .then((response) => response.json())
-//  .then((data) => {return(data)});
-// }
-
-// async function loadToDos() {
-//   const loadedToDos = await readTodoApi(USERID)
-//   loadedToDos.forEach(function(toDo) {
-//   paintToDo(toDo.id, toDo.todo);
-//   });
-// }
-
 function readTodoApi(userId) {
   fetch(
     `http://localhost:7878/readTodo?userId=${userId}`
@@ -102,8 +85,10 @@ function readTodoApi(userId) {
       }).then(function(json) {
         var i;
         for (i = 1; i <= json.lastid; i++) {
-          console.log(json[i],i)
-          paintToDo(json[i].id, json[i].todo);
+          if(json[i]!=null){
+            console.log(json[i],i)
+            paintToDo(json[i].id, json[i].todo);
+          }
         }
       })
 }
