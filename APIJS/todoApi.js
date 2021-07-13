@@ -3,6 +3,12 @@ toDoInput = toDoForm.querySelector("input"),
 toDoList = document.querySelector(".js-toDoList");
 
 let toDos = [];
+var currentUserId = 0
+
+function loadId() {
+  const currentUserId = localStorage.getItem("currentUserId");
+  return(currentUserId)
+}
 
 function deleteToDo(event) {
   const btn = event.target;
@@ -45,6 +51,7 @@ function handleSubmit(event) {
 }
 
 function init() {
+  USERID = loadId()
   readTodoApi(USERID)
   toDoForm.addEventListener("submit", handleSubmit);
 }
@@ -85,5 +92,5 @@ function readTodoApi(userId) {
             paintToDo(json[i].id, json[i].todo);
           }
         }
-      })
+    })
 }

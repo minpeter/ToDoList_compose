@@ -27,22 +27,6 @@ function paintGreeting(text) {
     greeting.innerHTML = `Hello ${text}`;
 }
 
-function loadName() {
-    const currentUser = localStorage.getItem(USER_LS);
-    if(currentUser === null){
-        askForName();
-    }else{
-        paintGreeting(currentUser);
-        loginApi(currentUser);
-    }
-}
-
-function init() {
-    loadName();
-}
-init();
-
-
 function addUserApi(userName) {
     fetch(`http://localhost:7878/addUser?userName=${userName}&password=${TESTPW}`)
     .then((response) => response.json())
@@ -75,3 +59,18 @@ function saveId(text) {
 function saveName(text) {
     localStorage.setItem(USER_LS, text);
 }
+
+function loadName() {
+    const currentUser = localStorage.getItem(USER_LS);
+    if(currentUser === null){
+        askForName();
+    }else{
+        paintGreeting(currentUser);
+        loginApi(currentUser);
+    }
+}
+
+function init() {
+    loadName();
+}
+init();
