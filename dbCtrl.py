@@ -33,7 +33,7 @@ def readTodo(userid):
     rows = cur.fetchall()
     if rows != []:
         for row in rows:
-            rowdict = {"userid":row[1],"todo":row[2],"complete":row[3]}
+            rowdict = {"id":row[0],"userid":row[1],"todo":row[2],"complete":row[3]}
             readTodoDict[str(row[0])] = rowdict
     readTodoDict["lastid"] = lastId(userid)
     return readTodoDict
