@@ -9,11 +9,12 @@ const USER_LS = "currentUser",
     ID_LS = "currentUserId";
 
 function handleSubmit(event) {
-    event.preventDefault();
+    // event.preventDefault();
     const currentValue = input.value;
     paintGreeting(currentValue);
     saveName(currentValue);
-    loginJson(currentValue);
+    loginApi(currentValue);
+    //dd
 }
 
 function askForName() {
@@ -24,6 +25,7 @@ function askForName() {
 function paintGreeting(text) {
     form.classList.remove(SHOWING_CH);
     greeting.classList.add(SHOWING_CH);
+    //dd
     greeting.innerHTML = `Hello ${text}`;
 }
 
@@ -33,26 +35,22 @@ function addUserApi(userName) {
     .then((data) => console.log(data));
   }
 
-  function loginApi(userName) {
-      fetch(
-        `http://localhost:7878/login?userName=${userName}&password=${TESTPW}`
-      ).then(function(response) {
-          return response.json();
-      }).then(function(json) {
-          if(json.userid!=null){
-            saveId(json.userid)
-              console.log(`${json.msg} userid : ${json.userid}`)
-          }else{
-              console.log(json.msg)
-          }
-      })
-  }
-  async function loginJson(name){
-      await loginApi(name).forEach(function(msg) {
-          saveId(msg.msg)
-      })
-  }
-  
+function loginApi(userName) {
+    fetch(
+    `http://localhost:7878/login?userName=${userName}&password=${TESTPW}`
+    ).then(function(response) {
+        return response.json();
+    }).then(function(json) {
+        if(json.userid!=null){
+        saveId(json.userid)
+        console.log(`${json.msg} userid : ${json.userid}`)
+        }else{
+        console.log(json.msg)
+        }
+    })
+}
+
+
 function saveId(text) {
     localStorage.setItem(ID_LS, text);
 }
@@ -67,6 +65,7 @@ function loadName() {
     }else{
         paintGreeting(currentUser);
         loginApi(currentUser);
+        //dd
     }
 }
 

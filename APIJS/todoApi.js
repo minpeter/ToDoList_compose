@@ -44,10 +44,17 @@ function paintToDo(id, todo) {
 function handleSubmit(event) {
   event.preventDefault();
   const currentValue = toDoInput.value;
-  const nextId = toDos[0] == null ? 1 : toDos[toDos.length-1].id+1
-  paintToDo(nextId, currentValue);
-  addTodoApi(nextId, USERID, currentValue);
-  toDoInput.value = "";
+  if(currentValue == "logout") {
+    console.log("test logout")
+    localStorage.removeItem(ID_LS)
+    localStorage.removeItem(USER_LS)
+    location.reload()
+  }else{
+    const nextId = toDos[0] == null ? 1 : toDos[toDos.length-1].id+1
+    paintToDo(nextId, currentValue);
+    addTodoApi(nextId, USERID, currentValue);
+    toDoInput.value = "";
+  }
 }
 
 function init() {
