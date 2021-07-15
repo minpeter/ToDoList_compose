@@ -8,6 +8,9 @@ const TESTPW = "testpw",
 const USER_LS = "currentUser",
     ID_LS = "currentUserId";
 
+const BACKEND_URL = "http://minpeter.ml:8787/"
+//http://localhost:7878/
+
 function handleSubmit(event) {
     // event.preventDefault();
     const currentValue = input.value;
@@ -30,14 +33,14 @@ function paintGreeting(text) {
 }
 
 function addUserApi(userName) {
-    fetch(`http://localhost:7878/addUser?userName=${userName}&password=${TESTPW}`)
+    fetch(`${BACKEND_URL}addUser?userName=${userName}&password=${TESTPW}`)
     .then((response) => response.json())
     .then((data) => console.log(data));
   }
 
 function loginApi(userName) {
     fetch(
-    `http://localhost:7878/login?userName=${userName}&password=${TESTPW}`
+    `${BACKEND_URL}login?userName=${userName}&password=${TESTPW}`
     ).then(function(response) {
         return response.json();
     }).then(function(json) {

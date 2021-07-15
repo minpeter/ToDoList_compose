@@ -65,30 +65,30 @@ function init() {
 init();
 
 function addTodoApi(id, userId, todo) {
-  fetch(`http://localhost:7878/addTodo?id=${id}&userId=${userId}&userId=${userId}&todo=${todo}`)
+  fetch(`${BACKEND_URL}addTodo?id=${id}&userId=${userId}&userId=${userId}&todo=${todo}`)
   .then((response) => response.json())
   .then((data) => console.log(data));
 }
 
 function delTodoApi(id, userId) {
-  fetch(`http://localhost:7878/delTodo?id=${id}&userId=${userId}`)
+  fetch(`${BACKEND_URL}delTodo?id=${id}&userId=${userId}`)
   .then((response) => response.json())
   .then((data) => console.log(data));
 }
 function editTodoApi(id, userId, text) {
-  fetch(`http://localhost:7878/editTodo?id=${id}&userId=${userId}&text=${text}`)
+  fetch(`${BACKEND_URL}editTodo?id=${id}&userId=${userId}&text=${text}`)
   .then((response) => response.json())
   .then((data) => console.log(data));
 }
 function todoComplete(id, userId, complete) {
-  fetch(`http://localhost:7878/todoComplete?id=${id}&userId=${userId}&complete=${complete}`)
+  fetch(`${BACKEND_URL}todoComplete?id=${id}&userId=${userId}&complete=${complete}`)
   .then((response) => response.json())
   .then((data) => console.log(data));
 }
 
 function readTodoApi(userId) {
   fetch(
-    `http://localhost:7878/readTodo?userId=${userId}`
+    `${BACKEND_URL}readTodo?userId=${userId}`
       ).then(function(response) {
         return response.json();
       }).then(function(json) {
