@@ -35,6 +35,7 @@ function addUserApi(userName) {
     fetch(`${BACKEND_URL}addUser?userName=${userName}&password=${TESTPW}`)
     .then((response) => response.json())
     .then((data) => console.log(data));
+    location.reload()
   }
 
 function loginApi(userName) {
@@ -48,6 +49,7 @@ function loginApi(userName) {
         console.log(`${json.msg} userid : ${json.userid}`)
         }else{
         console.log(json.msg)
+        addUserApi(userName)
         }
     })
 }
