@@ -8,14 +8,14 @@ const TESTPW = "testpw",
 const USER_LS = "currentUser",
     ID_LS = "currentUserId";
 
-const BACKEND_URL = "http://localhost:7878/"
+const BACKEND_URL = "http://minpeter.ml:8787/"
+//"http://localhost:7878/"
 
 function handleSubmit(event) {
     // event.preventDefault();
     const currentValue = input.value;
-    paintGreeting(currentValue);
     saveName(currentValue);
-    loginApi(currentValue);
+    location.reload()
     //dd
 }
 
@@ -47,6 +47,7 @@ function loginApi(userName) {
         if(json.userid!=null){
         saveId(json.userid)
         console.log(`${json.msg} userid : ${json.userid}`)
+        location.reload()
         }else{
         console.log(json.msg)
         addUserApi(userName)
@@ -68,7 +69,10 @@ function loadName() {
         askForName();
     }else{
         paintGreeting(currentUser);
-        loginApi(currentUser);
+        const currentUserId = localStorage.getItem(ID_LS);
+        if(currentUserId === null){
+            loginApi(currentUser);
+        }
         //dd
     }
 }
