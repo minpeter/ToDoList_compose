@@ -1,0 +1,11 @@
+version: "3.7"
+
+services: 
+  app: 
+    image: nginx:todo
+    ports: 
+      - 80:80
+  todolistbackend: 
+    image: todolistbackend
+    ports: 
+      - 7878:7878
