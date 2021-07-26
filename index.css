@@ -1,0 +1,36 @@
+body {
+    background-color: rgb(72, 115, 158);
+    text-align: center;
+}
+
+.btn {
+    cursor: pointer;
+}
+
+body {
+    color: #ffffff;
+    transition: color 0.5s ease-in-out;
+}
+
+.form,
+.greetings {
+    display: none;
+}
+
+.showing {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+ul {
+   list-style:none;
+   padding-left:0px;
+}
