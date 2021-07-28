@@ -8,8 +8,8 @@ const TESTPW = "testpw",
 const USER_LS = "currentUser",
     ID_LS = "currentUserId";
 
-const BACKEND_URL = "http://minpeter.ml:8787/"
-//"http://localhost:7878/"
+const BACKEND_URL = "http://localhost:7878/"
+//"http://minpeter.ml:8787/"
 
 function handleSubmit(event) {
     // event.preventDefault();

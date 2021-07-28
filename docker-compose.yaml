@@ -1,0 +1,14 @@
+version: "3.0"
+
+services: 
+  frontend: 
+    build:
+      dockerfile: todolist_frontend/Dockerfile
+    ports: 
+      - 80:80
+
+  backend: 
+    build:
+      dockerfile: todolist_backend/Dockerfile
+    ports: 
+      - 7878:7878
